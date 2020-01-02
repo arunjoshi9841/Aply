@@ -1,22 +1,24 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import history from './history';
-import store from './store';
-import { Router, Route, Switch } from "react-router-dom";
-
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+//import NotificatioModal from "./components/reusable-components/NotificationModal";
 //import containers
-import Home from './containers/Home/Home'
+import Home from "./containers/Home/Home";
+import Dashboard from "./containers/Dashboard/Dashboard";
+import PrivateRoute from "./utils/PrivateRouter";
+import PageNotFound from "./components/screens/PageNotFound";
 
 function App() {
+  
   return (
     <div className="font-baseFont">
-       <Provider store={store}>         
-          <Router history={history}>
-          <Switch><Route exact path="/" component={Home}/></Switch>          
-          </Router>
-        </Provider>
+      {/* <NotificatioModal />           */}
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <PrivateRoute exact path="/:user/Dashboard" component={Dashboard} />
+        <Route component={PageNotFound} />
+      </Switch>
     </div>
   );
 }
 
-export default App;
+export default (App);

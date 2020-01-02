@@ -1,9 +1,9 @@
 import React from "react";
 
 const ForgotPassword = () => {
-  const handleChange = e => {
-    console.log(e.target.value);
-  };
+  // const handleChange = e => {
+  //   console.log(e.target.value);
+  // };
   return (
     <div>
       <p className="text-2xl text-center font-title font-bold text-purple-700 uppercase">

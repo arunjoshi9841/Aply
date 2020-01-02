@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
 import getCountries from "../../utils/getCountries";
 import checkPasswordValidation from "../../utils/checkPasswordValidation";
+import { addUser } from "../../store/actions";
+
 const initialUser = {
   firstName: "",
   lastName: "",
@@ -12,18 +18,35 @@ const initialUser = {
   city: "",
   zip: ""
 };
-const Register = () => {
+
+const Register = ({registerError, addUser}) => {
   const [user, setUser] = useState({ ...initialUser });
   const [error, setError] = useState(false);
-  const [passwordEqual, setPasswordEqual]= useState(true);
+  const [passwordEqual, setPasswordEqual] = useState(true);
   const handleChange = e => {
     setUser({ ...user, [e.target.id]: e.target.value });
     if (e.target.id === "password") {
-      setError(checkPasswordValidation(e.target.value))
+      setError(checkPasswordValidation(e.target.value));
     }
     if (e.target.id === "confirmPassword") {
-      user.password==e.target.value?setPasswordEqual(true):setPasswordEqual(false);
+      user.password === e.target.value
+        ? setPasswordEqual(true)
+        : setPasswordEqual(false);
     }
+  };
+  const handleSubmit = () => {
+    addUser({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      emailAddress: user.emailAddress,
+      password: user.password,
+      dob: user.dob,
+      address: {
+        country: user.country,
+        city: user.city,
+        zip: user.zip
+      }
+    });
   };
 
   return (
@@ -99,7 +122,11 @@ const Register = () => {
               Password*
             </label>
             <input
-              className={error?"appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-red-500":"appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}
+              className={
+                error
+                  ? "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-red-500"
+                  : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              }
               id="password"
               type="password"
               onChange={e => handleChange(e)}
@@ -107,7 +134,15 @@ const Register = () => {
               value={user.password}
               required
             />
-            <p className={error?"text-red-500 text-xs italic":"text-gray-600 text-xs italic"}>Password must be 7 characters long</p>
+            <p
+              className={
+                error
+                  ? "text-red-500 text-xs italic"
+                  : "text-gray-600 text-xs italic"
+              }
+            >
+              Password must be 7 characters long
+            </p>
           </div>
           <div className="w-full md:w-1/2 px-3">
             <label
@@ -117,7 +152,11 @@ const Register = () => {
               Confirm Password*
             </label>
             <input
-              className={!passwordEqual?"appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-red-500":"appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"}
+              className={
+                !passwordEqual
+                  ? "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-red-500"
+                  : "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              }
               id="confirmPassword"
               type="password"
               onChange={e => handleChange(e)}
@@ -125,7 +164,11 @@ const Register = () => {
               value={user.confirmPassword}
               required
             />
-            {!passwordEqual?<p className="text-red-600 text-xs italic">Password is not equal</p>:null}
+            {!passwordEqual ? (
+              <p className="text-red-600 text-xs italic">
+                Password is not equal
+              </p>
+            ) : null}
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
@@ -213,15 +256,34 @@ const Register = () => {
           <div className="flex items-center justify-between mt-12 ml-3">
             <button
               className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
             >
               Register
             </button>
           </div>
+          <p className="text-center text-red-500 text-md">{registerError}</p>
         </div>
       </form>
     </div>
   );
 };
 
-export default Register;
+Register.propTypes = {
+  addUser: PropTypes.func.isRequired
+};
+
+const mapStateToProps=({auth})=>{
+  return{
+  registerError: auth.registerError
+  }
+  }
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      addUser
+    },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
