@@ -1,16 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
-
-import { connect } from "react-redux";
-
 import { Route, Redirect} from "react-router-dom";
 
-const PrivateRouter = ({ component: Component, isAuthenticated, ...rest }) => {
+const PrivateRouter = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props =>
-        isAuthenticated?(
+        localStorage.getItem('jwt')?(
           <Component {...props} />
         ) : (
           <Redirect
@@ -22,14 +18,4 @@ const PrivateRouter = ({ component: Component, isAuthenticated, ...rest }) => {
   );
 };
 
-PrivateRouter.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired
-};
-
-const mapStateToProps=({auth})=>{
-    return{
-    isAuthenticated: auth.isAuthenticated
-    }
-    }
-
-export default connect(mapStateToProps, null)(PrivateRouter);
+export default (PrivateRouter);

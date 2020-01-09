@@ -1,16 +1,19 @@
 import React from "react";
+
+import Undraw from "react-undraw";
 import History from "../../history";
 
 const PageNotFound = () => {
   return (
-    <div className="mx-auto mt-20 bg-purple-500 rounded-lg max-w-xs shadow-lg h-74">
-      <div className="text-center relative text-white px-6 pb-6 mt-6">
-        <p className="text-2xl">404 NOT FOUND</p>
+    <div className="mt-20 border-2 max-w-xs max-h-xs shadow-lg py-12 mx-auto">
+      <div className="text-center px-6 pb-6 mt-6">
+      <Undraw name="page-not-found" primaryColor="#9F7AEA"/>
+        <p className="text-xl">PAGE NOT FOUND</p>
         <div
-          className="flex justify-center text-md"
+          className="flex justify-center text-md text-purple-600 cursor-pointer"
           onClick={() => History.push("/")}
         >
-          Go Back to Home
+          Go Home
         </div>
       </div>
     </div>

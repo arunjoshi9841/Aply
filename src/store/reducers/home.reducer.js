@@ -1,7 +1,7 @@
 import * as Actions from "../actions/home.actions";
 
 const initialState = {
-  isModalOpen: true, 
+  isModalOpen: false, 
   notification:false,
   notificationMessage:['success','Hello this is test']
 };

@@ -29,7 +29,6 @@ export default function(state = initialState, action) {
       };
     case Actions.SET_AUTHENTICATION:
       if (action.payload) {
-        console.log(action.payload)
         return {
           ...state,
           isAuthenticated: true
@@ -37,7 +36,9 @@ export default function(state = initialState, action) {
       } else {
         return state;
       }
-
+    case Actions.SET_UNAUTHORIZED:
+      localStorage.removeItem('jwt');
+      return {...state, isAuthenticated:false};
     default:
       return state;
   }

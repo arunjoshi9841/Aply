@@ -11,13 +11,14 @@ const Dialog = isOpen => {
     width: "100%",
     height: "100%",
     overflow: "auto",
-    backgroundColor: "transparent"
+    background: "rgba(240, 248, 255, 0.18)"
   };
 };
 
 const DialogContent = (height, width) => {
   return {
-    backgroundCcolor: "#fefefe",
+    backgroundColor: "#fefefe",
+    position:"relative",
     margin: "auto",
     boxShadow:
       "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",

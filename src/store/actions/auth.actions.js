@@ -5,7 +5,8 @@ export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_ERROR = "LOGIN_ERROR";
-export const SET_AUTHENTICATION= "SET_AUTHENTICATION";
+export const SET_AUTHENTICATION = "SET_AUTHENTICATION";
+export const SET_UNAUTHORIZED = "SET_UNAUTHORIZED";
 
 export function addUser(user) {
   return dispatch => {
@@ -39,11 +40,7 @@ export function login(user) {
             type: LOGIN_SUCCESS,
             payload: response.data.user
           }),
-          history.push(
-            `/:${response.data.user.userName
-              .toString()
-              .replace(/\s/g, "")}/Dashboard`
-          )
+          history.push(`/${response.data.user.userName}/Dashboard`)
         ]);
       })
       .catch(error => {
@@ -59,6 +56,14 @@ export function setAuthentication() {
     dispatch({
       type: SET_AUTHENTICATION,
       payload: localStorage.getItem("jwt")
+    });
+  };
+}
+
+export function setUnauthorized() {
+  return dispatch => {
+    dispatch({
+      type: SET_UNAUTHORIZED
     });
   };
 }
