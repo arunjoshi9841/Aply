@@ -31,7 +31,7 @@ function App({ isAuthenticated, setAuthentication }) {
           <Route exact path="/" component={Home} />
           <Route exact path="/Contact" component={Contact} />
           <Route exact path="/About" component={About} />
-          <PrivateRoute exact path="/:user/Dashboard" component={Dashboard} />
+          <Route exact path="/:user/Dashboard" component={Dashboard} />
           <PrivateRoute exact path="/:user" component={Profile} />
           <Route component={PageNotFound} />
         </Switch>

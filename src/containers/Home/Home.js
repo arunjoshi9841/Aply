@@ -12,7 +12,8 @@ import { setLoginModal } from "../../store/actions";
 
 const Home = ({ isAuthenticated, setLoginModal }) => {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow">
       <section className="flex flex-col-reverse sm:flex-row py-12">
         <div className="sm:w-2/5 flex flex-col items-center sm:items-start text-center sm:text-left">
           <h1 className="uppercase text-6xl text-blue-900 font-bold leading-none tracking-wide mb-2">
@@ -61,8 +62,9 @@ const Home = ({ isAuthenticated, setLoginModal }) => {
           </p>
         </div>
       </section>
+      </div>
 
-      <Footer />
+      <Footer/>
 
       <Auth />
     </div>
