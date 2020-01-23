@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MaterialIcon from "material-icons-react";
+import getGravatar from "../../utils/getGravatar"
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
+
 import { setUnauthorized } from "../../store/actions";
 
-const NavBar = ({ isAuthenticated, userName, setUnauthorized }) => {
+const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) => {
   const [nav, setNav] = useState("Home");
   const [menuToogle, setMenuToggle] = useState(false);
   const [sidebarToogle, setSidebarToogle] = useState(false);
@@ -60,7 +62,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized }) => {
                 onClick={() => setMenuToggle(!menuToogle)}
               >
                 <img
-                  src="https://cdn1.iconfinder.com/data/icons/avatars-1-5/136/87-512.png"
+                  src={getGravatar("aronjoshi5@gmail.com")}
                   className={
                     nav === "Profile"
                       ? "w-12 h-12 mt-4 rounded-full cursor-pointer"
@@ -219,13 +221,15 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized }) => {
 NavBar.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   userName: PropTypes.string.isRequired,
+  emailAddress: PropTypes.string.isRequired,
   setUnauthorized: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    userName: state.user.userName
+    userName: state.user.userName,
+    emailAddress: state.user.emailAddress
   };
 };
 const mapDispatchToProps = dispatch => {

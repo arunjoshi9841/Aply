@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 //import containers
 import Home from "./containers/Home/Home";
 import Dashboard from "./containers/Dashboard/Dashboard";
+import Statistics from "./containers/Statistics/Statistics";
 import NavBar from "./components/reusable-components/NavBar";
 import PrivateRoute from "./utils/PrivateRouter";
 import PageNotFound from "./components/screens/PageNotFound";
@@ -32,6 +33,7 @@ function App({ isAuthenticated, setAuthentication }) {
           <Route exact path="/Contact" component={Contact} />
           <Route exact path="/About" component={About} />
           <PrivateRoute exact path="/:user/Dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/:user/Statistics" component={Statistics} />
           <PrivateRoute exact path="/:user" component={Profile} />
           <Route component={PageNotFound} />
         </Switch>
