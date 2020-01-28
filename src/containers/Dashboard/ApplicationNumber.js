@@ -1,8 +1,12 @@
 import React from "react";
 
 import MaterialIcon from "material-icons-react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {setApplicationModal} from "../../store/actions"
 
-const ApplicationNumber = () => {
+const ApplicationNumber = ({setApplicationModal}) => {
   return (
     <div className="pb-4">
       <div className="bg-white border-t border-b sm:border-l sm:border-r sm:rounded shadow mb-6">
@@ -61,7 +65,7 @@ const ApplicationNumber = () => {
           </div>
         </div>
         <div className="hidden lg:flex lg:flex-col">
-          <div className="text-center py-4">
+          <div className="text-center py-4" onClick={()=>setApplicationModal(true)}>
             <div className="border-b">
               <div className="bg-purple-600 w-12 h-12 rounded-full text-center pt-3 mx-auto my-2">
                 <MaterialIcon icon="add" color="white" />
@@ -107,4 +111,17 @@ const ApplicationNumber = () => {
   );
 };
 
-export default ApplicationNumber;
+ApplicationNumber.propTypes = {
+  setApplicationModal: PropTypes.func.isRequired
+};
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      setApplicationModal
+    },
+    dispatch
+  );
+};
+
+
+export default connect(null, mapDispatchToProps) (ApplicationNumber);

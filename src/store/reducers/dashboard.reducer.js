@@ -1,7 +1,9 @@
 import * as Actions from "../actions/dashboard.actions";
 
 const initialState = {
-  isModalOpen: false
+  isModalOpen: false,
+  jobsAll:[],
+  job:{}
 };
 
 

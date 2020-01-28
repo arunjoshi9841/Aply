@@ -19,7 +19,7 @@ const initialUser = {
   zip: ""
 };
 
-const Register = ({registerError, addUser}) => {
+const Register = ({ registerError, addUser }) => {
   const [user, setUser] = useState({ ...initialUser });
   const [error, setError] = useState(false);
   const [passwordEqual, setPasswordEqual] = useState(true);
@@ -273,11 +273,11 @@ Register.propTypes = {
   addUser: PropTypes.func.isRequired
 };
 
-const mapStateToProps=({auth})=>{
-  return{
-  registerError: auth.registerError
-  }
-  }
+const mapStateToProps = ({ auth }) => {
+  return {
+    registerError: auth.registerError
+  };
+};
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {

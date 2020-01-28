@@ -15,11 +15,12 @@ import About from "./components/screens/About";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { setAuthentication } from "./store/actions";
+import { setAuthentication, getUser } from "./store/actions";
 
-function App({ isAuthenticated, setAuthentication }) {
+function App({ isAuthenticated, setAuthentication, getUser }) {
   useEffect(() => {
-    if (localStorage.getItem("jwt")) {
+    if (localStorage.getItem("jwt")) {     
+      getUser();
       setAuthentication();
     }
   });
@@ -44,7 +45,8 @@ function App({ isAuthenticated, setAuthentication }) {
 
 App.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  setAuthentication: PropTypes.func.isRequired
+  setAuthentication: PropTypes.func.isRequired,
+  getUser:PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ auth }) => {
@@ -55,7 +57,8 @@ const mapStateToProps = ({ auth }) => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      setAuthentication
+      setAuthentication,
+      getUser
     },
     dispatch
   );

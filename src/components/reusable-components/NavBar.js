@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MaterialIcon from "material-icons-react";
-import getGravatar from "../../utils/getGravatar"
+import getGravatar from "../../utils/getGravatar";
+import Undraw from "react-undraw";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -22,13 +23,13 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
       case "/Contact":
         setNav("Contact");
         break;
-      case "/:userName":
+      case "/:user":
         setNav("Profile");
         break;
       case "/About":
         setNav("About");
         break;
-      case "/:userName/Dashboard":
+      case "/:user/Dashboard":
         setNav("Dashboard");
         break;
       default:
@@ -62,7 +63,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                 onClick={() => setMenuToggle(!menuToogle)}
               >
                 <img
-                  src={getGravatar("aronjoshi5@gmail.com")}
+                  src={getGravatar(`${emailAddress}`)}
                   className={
                     nav === "Profile"
                       ? "w-12 h-12 mt-4 rounded-full cursor-pointer"
@@ -256,8 +257,6 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
 
 NavBar.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  userName: PropTypes.string.isRequired,
-  emailAddress: PropTypes.string.isRequired,
   setUnauthorized: PropTypes.func.isRequired
 };
 

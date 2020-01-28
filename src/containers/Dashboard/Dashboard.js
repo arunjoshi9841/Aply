@@ -18,7 +18,7 @@ const Dashboard = ({setApplicationModal}) => {
       <ApplicationList className="w-3/4"/>
      
       
-      <div className="lg:hidden absolute bottom-0 right-0 z-30 mx-4 my-4 bg-purple-600 w-12 h-12 rounded-full text-center pt-3" onClick={()=>setApplicationModal(true)}>
+      <div className="lg:hidden fixed bottom-0 right-0 z-30 mx-4 my-4 bg-purple-600 w-12 h-12 rounded-full text-center pt-3" onClick={()=>setApplicationModal(true)}>
         <MaterialIcon icon="add" color="white" />
       </div>
       <ApplicationModal/>

@@ -1,4 +1,4 @@
-import * as Actions from "../actions/home.actions";
+import * as Actions from "../actions";
 
 const initialState = {
   isModalOpen: false, 
@@ -14,6 +14,11 @@ export default function(state = initialState, action) {
         ...state,
         isModalOpen: action.payload
       };
+      case Actions.LOGIN_SUCCESS:
+        return{
+          ...state,
+          isModalOpen:false
+        }
       case Actions.CLOSE_NOTIFICATION:
         return{
           ...state,
