@@ -9,7 +9,7 @@ import MaterialIcon from "material-icons-react";
 import getCountries from "../../utils/getCountries";
 
 const initialJob = {
-  status: "applied",
+  status: 1,
   note: "",
   position: "",
   recruiter: {
@@ -28,7 +28,7 @@ const initialJob = {
   link: ""
 };
 
-const ApplicationModal = ({ isModalOpen, setApplicationModal, userId, createJob}) => {
+const ApplicationModal = ({ isModalOpen, setApplicationModal, userId, createJob, jobError}) => {
   const [toggleRecruiter, setToggleRecruiter] = useState(false);
   const [job, setJob] = useState(initialJob);
   const handleClose = () => {
@@ -64,8 +64,8 @@ const ApplicationModal = ({ isModalOpen, setApplicationModal, userId, createJob}
           Create Application
         </p>
       </div>
-
-      <form className="mt-12 flex flex-col mx-4 mb-4">
+      <p className="text-center text-red-500 text-sm">{jobError}</p>
+      <form className="mt-12 flex flex-col mx-8 mb-4">
         <div className="mb-4 flex flex-col">
           <label
             className="text-gray-700 text-sm font-bold mb-2"
@@ -118,11 +118,11 @@ const ApplicationModal = ({ isModalOpen, setApplicationModal, userId, createJob}
                 }}
                 required
               >
-                <option value="1">Applied</option>
-                <option value="2">Rejected</option>
-                <option value="3">Interview</option>
-                <option value="4">Offer</option>
-                <option value="5">Accepted</option>
+                <option value={1}>Applied</option>
+                <option value={2}>Rejected</option>
+                <option value={3}>Interview</option>
+                <option value={4}>Offer</option>
+                <option value={5}>Accepted</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg
@@ -297,8 +297,9 @@ ApplicationModal.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    isModalOpen: state.dashboard.isModalOpen,
-    userId: state.user.uid
+    isModalOpen: state.dashboard.isApplicationOpen,
+    userId: state.user.uid,
+    jobError: state.dashboard.jobError
   };
 };
 const mapDispatchToProps = dispatch => {

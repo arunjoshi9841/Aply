@@ -1,19 +1,30 @@
 import * as Actions from "../actions/dashboard.actions";
 
 const initialState = {
-  isModalOpen: false,
+  isApplicationOpen:false,
   jobsAll:[],
-  job:{}
+  job:{},
+  error:""
 };
 
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case Actions.SET_MODAL:
+    case Actions.SET_APPLICATION_MODAL:
       return {
         ...state,
-        isModalOpen: action.payload
+        isApplicationOpen: action.payload
       };
+      case Actions.GET_ALL_JOBS:
+        return{
+          ...state,
+          jobsAll: action.payload
+        }
+      case Actions.JOB_ERROR:
+        return{
+          ...state,
+          error: action.payload
+        }
      default:
       return state;
   }

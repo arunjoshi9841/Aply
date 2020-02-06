@@ -1,7 +1,9 @@
 import React from "react";
 import ApplicationCard from "./ApplicationCard";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const ApplicationList = () => {
+const ApplicationList = ({jobsAll}) => {
   return (
     <div className="border shadow w-full lg:mr-8">
       <div className="flex flex-wrap border-b py-4">
@@ -19,18 +21,23 @@ const ApplicationList = () => {
                 </span>
 			</div>
       </div>
-      <div className="flex flex-wrap">       
-             
-              <ApplicationCard status={1}/>
-              <ApplicationCard status={2}/>
-              <ApplicationCard status={2}/>
-              <ApplicationCard status={2}/>
-              <ApplicationCard status={0}/>
-        
-        
+      <div className="flex flex-wrap justify-center">       
+            {jobsAll.map((job, index)=>(
+                <ApplicationCard key={index} job={job}/>
+            ))} 
+              
       </div>
     </div>
   );
 };
 
-export default ApplicationList;
+ApplicationList.propTypes = {  
+  jobsAll: PropTypes.array.isRequired
+};
+const mapStateToProps = state => {
+  return {
+    jobsAll: state.dashboard.jobsAll
+  };
+};
+
+export default connect(mapStateToProps, null)(ApplicationList);

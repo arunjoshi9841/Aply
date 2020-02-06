@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MaterialIcon from "material-icons-react";
 import getGravatar from "../../utils/getGravatar";
-import Undraw from "react-undraw";
+import Folder from "../../utils/svg/undraw_folder_39kl.svg"
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -169,7 +169,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
         </div>
         <div className="h-24 bg-purple-500 w-24 ml-12 -mt-16"></div>
         <div className="-mt-48 ml-16 w-20 h-20 pr-2">
-          <Undraw name="resume-folder" primaryColor="#F2A438" />
+          <img src={Folder} alt="paperClipLogo"/>
         </div>
       </div>
       <div

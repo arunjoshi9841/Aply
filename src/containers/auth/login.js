@@ -74,7 +74,7 @@ const Login = ({ loginError, login}) => {
             Password must be 7 characters long
           </p>
         </div>
-          <p className="text-center text-red-500 text-md">{loginError}</p>
+          <p className="text-center text-red-500 text-sm">{loginError}</p>
         <div className="flex items-center justify-between">
           <button
             className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"

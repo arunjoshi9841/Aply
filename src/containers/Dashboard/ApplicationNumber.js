@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import getColor from "../../utils/getColor";
 
 import MaterialIcon from "material-icons-react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import {setApplicationModal} from "../../store/actions"
+import { setApplicationModal } from "../../store/actions";
 
-const ApplicationNumber = ({setApplicationModal}) => {
+const ApplicationNumber = ({ setApplicationModal, jobsAll }) => {
   return (
     <div className="pb-4">
       <div className="bg-white border-t border-b sm:border-l sm:border-r sm:rounded shadow mb-6">
@@ -14,38 +15,6 @@ const ApplicationNumber = ({setApplicationModal}) => {
           <div className="flex justify-between -mb-px">
             <div className="lg:hidden text-blue-dark py-4 text-lg">
               Application
-            </div>
-            <div className="flex text-sm mx-auto">
-              <button
-                type="button"
-                className="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3"
-              >
-                1M
-              </button>
-              <button
-                type="button"
-                className="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3"
-              >
-                1D
-              </button>
-              <button
-                type="button"
-                className="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3"
-              >
-                1W
-              </button>
-              <button
-                type="button"
-                className="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark mr-3"
-              >
-                1Y
-              </button>
-              <button
-                type="button"
-                className="appearance-none py-4 text-grey-dark border-b border-transparent hover:border-grey-dark"
-              >
-                ALL
-              </button>
             </div>
           </div>
         </div>
@@ -58,14 +27,19 @@ const ApplicationNumber = ({setApplicationModal}) => {
           </div>
           <div className="flex-shrink w-40 inline-block">
             <select className="block appearance-none w-full bg-white border border-grey-light px-4 py-2 pr-8 rounded">
-              <option>Applications</option>
-              <option>Accepted</option>
-              <option>Rejected</option>
+              <option value={1}>Applied</option>
+              <option value={2}>Rejected</option>
+              <option value={3}>Interview</option>
+              <option value={4}>Offer</option>
+              <option value={5}>Accepted</option>
             </select>
           </div>
         </div>
         <div className="hidden lg:flex lg:flex-col">
-          <div className="text-center py-4" onClick={()=>setApplicationModal(true)}>
+          <div
+            className="text-center py-4"
+            onClick={() => setApplicationModal(true)}
+          >
             <div className="border-b">
               <div className="bg-purple-600 w-12 h-12 rounded-full text-center pt-3 mx-auto my-2">
                 <MaterialIcon icon="add" color="white" />
@@ -78,30 +52,46 @@ const ApplicationNumber = ({setApplicationModal}) => {
           <div className="text-center py-4">
             <div className="border-b">
               <div className="text-grey-darker mb-2">
-                <span className="text-2xl text-green-600">2</span>
+                <span className="text-2xl" style={{ color: getColor(2) }}>
+                {jobsAll.filter(job=>job.status===2).length}
+                </span>
               </div>
               <div className="text-sm uppercase text-grey tracking-wide">
-                Accepted
+                Rejected
               </div>
             </div>
           </div>
           <div className="text-center py-4">
             <div className="border-b">
               <div className="text-grey-darker mb-2">
-                <span className="text-2xl text-red-600">12</span>
+                <span className="text-2xl" style={{ color: getColor(1) }}>
+                {jobsAll.filter(job=>job.status===1).length}
+                </span>
               </div>
               <div className="text-sm uppercase text-grey tracking-wide">
-                Rejection
+                Pending
+              </div>
+            </div>
+          </div>
+          <div className="text-center py-4">
+            <div className="border-b">
+              <div className="text-grey-darker mb-2">
+                <span className="text-2xl" style={{ color: getColor(3) }}>
+                  {jobsAll.filter(job=> job.status===3).length}
+                </span>
+              </div>
+              <div className="text-sm uppercase text-grey tracking-wide">
+                Interview
               </div>
             </div>
           </div>
           <div className="text-center py-4">
             <div>
               <div className="text-grey-darker mb-2">
-                <span className="text-2xl text-blue-600">20</span>
+                <span className="text-2xl text-blue-600">{jobsAll.length}</span>
               </div>
               <div className="text-sm uppercase text-grey tracking-wide">
-                Application
+                Applications
               </div>
             </div>
           </div>
@@ -112,7 +102,8 @@ const ApplicationNumber = ({setApplicationModal}) => {
 };
 
 ApplicationNumber.propTypes = {
-  setApplicationModal: PropTypes.func.isRequired
+  setApplicationModal: PropTypes.func.isRequired,
+  jobsAll: PropTypes.array.isRequired
 };
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
@@ -122,6 +113,10 @@ const mapDispatchToProps = dispatch => {
     dispatch
   );
 };
+const mapStateToProps = state => {
+  return {
+    jobsAll: state.dashboard.jobsAll
+  };
+};
 
-
-export default connect(null, mapDispatchToProps) (ApplicationNumber);
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicationNumber);

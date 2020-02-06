@@ -25,7 +25,7 @@ function App({ isAuthenticated, setAuthentication, getUser }) {
     }
   });
   return (
-    <div className="font-baseFont">
+    <div className="font-baseFont overflow-hidden">
       <NavBar />
       {/* <NotificatioModal />           */}
       <div className="lg:mx-16 mx-8 my-8">
