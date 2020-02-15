@@ -1,4 +1,5 @@
 import * as Actions from "../actions/dashboard.actions";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
   isApplicationOpen:false,
@@ -13,6 +14,8 @@ export default function(state = initialState, action) {
     case Actions.SET_APPLICATION_MODAL:
       return {
         ...state,
+        job: action.payload?state.job:{},
+        error:"",
         isApplicationOpen: action.payload
       };
       case Actions.GET_ALL_JOBS:
@@ -24,6 +27,11 @@ export default function(state = initialState, action) {
         return{
           ...state,
           error: action.payload
+        }
+      case Actions.SET_JOB:
+        return {
+          ...state,
+          job: action.payload
         }
      default:
       return state;

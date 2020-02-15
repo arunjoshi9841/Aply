@@ -18,7 +18,7 @@ const Dashboard = ({ setApplicationModal, getJobs, jobsAll }) => {
       getJobs();
       setInitialized(true);
     }
-  },[]);
+  });
   return (
     <div className="w-full lg:flex lg:flex-row-reverse mt-8">
       <ApplicationNumber className="w-1/4"/>

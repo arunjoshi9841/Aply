@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Modal } from "../../components/reusable-components";
-import { setApplicationModal, createJob } from "../../store/actions";
+import { setApplicationModal, createJob, updateJob } from "../../store/actions";
 import MaterialIcon from "material-icons-react";
 import getCountries from "../../utils/getCountries";
 
@@ -28,10 +28,31 @@ const initialJob = {
   link: ""
 };
 
-const ApplicationModal = ({ isModalOpen, setApplicationModal, userId, createJob, jobError}) => {
+const ApplicationModal = ({
+  isModalOpen,
+  setApplicationModal,
+  selectedJob,
+  createJob,
+  jobError,
+  updateJob
+}) => {
   const [toggleRecruiter, setToggleRecruiter] = useState(false);
+  const [isNew, setIsNew] = useState(true);
   const [job, setJob] = useState(initialJob);
+
+  useEffect(() => {
+    if (selectedJob.jobId) {
+      setIsNew(false);
+      setJob(selectedJob);
+    }
+  }, [selectedJob]);
+
   const handleClose = () => {
+    setToggleRecruiter(false);
+    if(!isNew){
+      setJob(initialJob);
+    }
+    setIsNew(true);
     setApplicationModal(false);
   };
   const handleChange = e => {
@@ -54,17 +75,19 @@ const ApplicationModal = ({ isModalOpen, setApplicationModal, userId, createJob,
       setJob({ ...job, company: tempComp });
     }
   };
-  const handleSubmit =()=>{
-  createJob(job);
-  }
+  const handleSubmit = () => {
+    isNew ? createJob(job) : updateJob(job);
+    setToggleRecruiter(false);    
+      setJob(initialJob);    
+    setIsNew(true);
+  };
   return (
     <Modal isOpen={isModalOpen} onClose={handleClose}>
       <div className="mt-4">
         <p className="text-2xl text-center font-title font-bold text-purple-700">
-          Create Application
+          {isNew ? "Create Application" : "Update Application"}
         </p>
       </div>
-      <p className="text-center text-red-500 text-sm">{jobError}</p>
       <form className="mt-12 flex flex-col mx-8 mb-4">
         <div className="mb-4 flex flex-col">
           <label
@@ -275,14 +298,14 @@ const ApplicationModal = ({ isModalOpen, setApplicationModal, userId, createJob,
             </div>
           </div>
         ) : null}
-
+        <p className="text-center text-red-500 text-sm">{jobError}</p>
         <div className="flex items-center justify-between mt-4">
           <button
             className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
             type="button"
             onClick={handleSubmit}
           >
-            Create Application
+            {isNew ? "Submit" : "Update"}
           </button>
         </div>
       </form>
@@ -292,21 +315,24 @@ const ApplicationModal = ({ isModalOpen, setApplicationModal, userId, createJob,
 
 ApplicationModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
-  setApplicationModal: PropTypes.func.isRequired
+  setApplicationModal: PropTypes.func.isRequired,
+  selectedJob: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     isModalOpen: state.dashboard.isApplicationOpen,
     userId: state.user.uid,
-    jobError: state.dashboard.jobError
+    jobError: state.dashboard.error,
+    selectedJob: state.dashboard.job
   };
 };
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       setApplicationModal,
-      createJob
+      createJob,
+      updateJob
     },
     dispatch
   );
