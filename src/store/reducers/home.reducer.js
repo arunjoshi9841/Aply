@@ -19,6 +19,12 @@ export default function(state = initialState, action) {
           ...state,
           isModalOpen:false
         }
+        case Actions.REGISTER_SUCCESS:{
+          return{
+            ...state,
+            isModalOpen:false
+          }
+        }
       case Actions.CLOSE_NOTIFICATION:
         return{
           ...state,
