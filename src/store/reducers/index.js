@@ -1,6 +1,13 @@
-import {combineReducers} from 'redux'
-import userReducer from '../../containers/auth/store/reducers'
-const reducer = combineReducers({
-    user: userReducer
+import { combineReducers } from 'redux'
+import authReducer from './auth.reducer'
+import userReducer from './user.reducer'
+import homeReducer from './home.reducer'
+import dashboardReducer from "./dashboard.reducer"
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+  user: userReducer,
+  home: homeReducer,
+  dashboard: dashboardReducer
 });
-export default reducer;
+export default rootReducer;
