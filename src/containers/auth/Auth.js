@@ -21,7 +21,7 @@ const Auth = ({ isModalOpen, setLoginModal }) => {
   const getCircularText = () => {
     if (view === 2 || view === 3) {
       return (
-        <div className="m-auto w-full text-center" onClick={() => setView(1)}>
+        <div className="m-auto text-center" onClick={() => setView(1)}>
           <MaterialIcon icon="account_circle" size="50px" color="#9F7AEA" />
           <p className="block text-gray-700 text-sm font-bold mb-2 mx-5">
             {" "}
@@ -41,28 +41,26 @@ const Auth = ({ isModalOpen, setLoginModal }) => {
       );
   };
   return (
-    <div>
-      <Modal isOpen={isModalOpen} onClose={handleClose}>
-        <div className="w-32 h-32 rounded-full float-right -mr-16 mt-12 flex items-center justify-center bg-gray-200 cursor-pointer hover:bg-gray-300">
+    isModalOpen?<Modal isOpen={isModalOpen} onClose={handleClose}>        
+        <div className="z-50 w-32 h-32 rounded-full float-right md:-mr-16 -mt-12 md:mt-12 flex items-center justify-center bg-gray-200 cursor-pointer hover:bg-gray-300">
           {getCircularText()}
         </div>
-        <div className="w-full mx-12  my-12">
+        <div className="m-12">
           {view === 1 ? (
             <div>
               <Login />
-              <span
+              {/* <span
                 className="font-bold underline text-sm text-blue-500 hover:text-blue-800"
                 onClick={() => setView(3)}
               >
                 Forgot Password?
-              </span>
+              </span> */}
             </div>
           ) : null}
           {view === 2 ? <Register /> : null}
           {view === 3 ? <ForgotPassword /> : null}
         </div>
-      </Modal>
-    </div>
+      </Modal>:<></>
   );
 };
 

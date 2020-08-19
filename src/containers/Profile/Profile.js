@@ -3,11 +3,17 @@ import MaterialIcon from "material-icons-react";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import getGravatar from "../../utils/getGravatar";
 import profileData from "../../utils/svg/undraw_profile_data_mk6k.svg";
-const Profile = ({ user }) => {
-  const [toggleEdit, setToggleEdit] = useState(false);
+import Modal from "../../components/reusable-components/Modal";
+import { bindActionCreators } from "redux";
+import Register from "../auth/Register";
+import { resetError, setEditModal } from "../../store/actions";
+const Profile = ({ user, resetError, isEditModal, setEditModal }) => {
+  const handleClose=()=>{
+  setEditModal(false);
+  resetError();
+  }
   return (
     <div className="max-w-4xl h-7/8 flex items-center mx-auto">
       <div id="profile" className="w-full flex shadow-2xl bg-white">
@@ -20,11 +26,11 @@ const Profile = ({ user }) => {
             alt="profile"
           />
               <h1 className="text-3xl font-bold pt-8 lg:pt-0 mr-4">
-                {user.userName}
+                {user.firstName+" "+user.lastName}
               </h1>
               <div
-                className="my-auto"
-                onClick={() => setToggleEdit(!toggleEdit)}
+                className="my-auto cursor-pointer"
+                onClick={()=>setEditModal(true)}
               >
                 <MaterialIcon icon="edit" color="#9F7AEA" />
               </div>
@@ -33,7 +39,7 @@ const Profile = ({ user }) => {
               <div className="flex">
                 <div className="mr-4">
                   <MaterialIcon icon="email" color="#609B9C" />
-                </div>
+                </div>                
                 <p className="text-xs font-bold">{user.emailAddress}</p>
               </div>
               <div className="flex">
@@ -48,7 +54,7 @@ const Profile = ({ user }) => {
                 ) : null}
               </div>
             </div>
-            <p class="pt-8 text-sm">
+            <p className="pt-8 text-sm">
               <i>
                 “The crowning fortune of a man is to be born to some pursuit
                 which finds him employment and happiness, whether it be to make
@@ -57,16 +63,6 @@ const Profile = ({ user }) => {
               <br />
               —Ralph Waldo Emerson
             </p>
-
-            <div className={toggleEdit ? "pt-12 pb-8" : "hidden"}>
-              <button
-                className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                type="button"
-                //onClick={handleSubmit}
-              >
-                Save
-              </button>
-            </div>
           </div>
         </div>
 
@@ -74,6 +70,11 @@ const Profile = ({ user }) => {
           <img src={profileData} alt="profileData" />
         </div>
       </div>
+      {isEditModal&&<Modal isOpen={isEditModal} onClose={handleClose}>  
+      <div className="m-12">
+      <Register edit={true}/>
+      </div>
+      </Modal>}
     </div>
   );
 };
@@ -82,17 +83,20 @@ Profile.propTypes = {
   user: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ user, home }) => {
   return {
-    user: user
+    user: user,
+    isEditModal: home.isEditModal,
   };
 };
-// const mapDispatchToProps = dispatch => {
-//   return bindActionCreators(
-//     {
-//   setUnauthorized
-//     },
-//     dispatch
-//   );
-// };
-export default connect(mapStateToProps, null)(Profile);
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      resetError,
+      setEditModal
+    },
+    dispatch
+  );
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

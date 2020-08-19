@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-
+import MaterialIcon from "material-icons-react";
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Modal } from "../../components/reusable-components";
-import { setApplicationModal, createJob, updateJob } from "../../store/actions";
-import MaterialIcon from "material-icons-react";
+import { createJob, setApplicationModal, updateJob } from "../../store/actions";
 import getCountries from "../../utils/getCountries";
 
 const initialJob = {
@@ -14,18 +13,18 @@ const initialJob = {
   position: "",
   recruiter: {
     name: "",
-    emailAddress: ""
+    emailAddress: "",
   },
   company: {
     name: "",
     address: {
-      country: "",
+      country: "United States",
       city: "",
-      zipCode: ""
-    }
+      zipCode: "",
+    },
   },
   isStarred: false,
-  link: ""
+  link: "",
 };
 
 const ApplicationModal = ({
@@ -34,7 +33,7 @@ const ApplicationModal = ({
   selectedJob,
   createJob,
   jobError,
-  updateJob
+  updateJob,
 }) => {
   const [toggleRecruiter, setToggleRecruiter] = useState(false);
   const [isNew, setIsNew] = useState(true);
@@ -49,21 +48,21 @@ const ApplicationModal = ({
 
   const handleClose = () => {
     setToggleRecruiter(false);
-    if(!isNew){
+    if (!isNew) {
       setJob(initialJob);
     }
     setIsNew(true);
     setApplicationModal(false);
   };
-  const handleChange = e => {
+  const handleChange = (e) => {
     setJob({ ...job, [e.target.id]: e.target.value });
   };
-  const handleRecruiterChange = e => {
+  const handleRecruiterChange = (e) => {
     let tempRecruiter = { ...job.recruiter };
     tempRecruiter = { ...tempRecruiter, [e.target.id]: e.target.value };
     setJob({ ...job, recruiter: tempRecruiter });
   };
-  const handleCompanyChange = e => {
+  const handleCompanyChange = (e) => {
     let tempComp = { ...job.company };
     if (e.target.id === "name") {
       tempComp.name = e.target.value;
@@ -77,238 +76,243 @@ const ApplicationModal = ({
   };
   const handleSubmit = () => {
     isNew ? createJob(job) : updateJob(job);
-    setToggleRecruiter(false);    
-      setJob(initialJob);    
+    setToggleRecruiter(false);
+    setJob(initialJob);
     setIsNew(true);
   };
   return (
     <Modal isOpen={isModalOpen} onClose={handleClose}>
-      <div className="mt-4">
-        <p className="text-2xl text-center font-title font-bold text-purple-700">
-          {isNew ? "Create Application" : "Update Application"}
-        </p>
-      </div>
-      <form className="mt-12 flex flex-col mx-8 mb-4">
-        <div className="mb-4 flex flex-col">
-          <label
-            className="text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            Company Name
-          </label>
-          <input
-            className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-            id="name"
-            type="text"
-            value={job.company.name}
-            onChange={e => handleCompanyChange(e)}
-            required
-          />
+      <div className="m-12">
+        <div className="mt-4">
+          <p className="text-2xl text-center font-title font-bold text-purple-700">
+            {isNew ? "Create Application" : "Update Application"}
+          </p>
         </div>
-        <div className="mb-6 flex flex-col">
-          <label
-            className="text-gray-700 text-sm font-bold mb-2"
-            htmlFor="position"
-          >
-            Position
-          </label>
-          <input
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="position"
-            type="text"
-            value={job.position}
-            onChange={e => {
-              handleChange(e);
-            }}
-            required
-          />
-        </div>
-        <div className="flex flex-wrap -mx-3 mb-2">
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <form
+          className="mt-12"
+          style={{ maxHeight: "60vh", overflowY: "auto", overflowX: "hidden" }}
+        >
+          <div className="mb-4 flex flex-col">
             <label
               className="text-gray-700 text-sm font-bold mb-2"
-              htmlFor="status"
+              htmlFor="name"
             >
-              Status
+              Company Name
             </label>
-            <div className="relative">
-              <select
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="status"
-                value={job.status}
-                onChange={e => {
-                  handleChange(e);
-                }}
-                required
-              >
-                <option value={1}>Applied</option>
-                <option value={2}>Rejected</option>
-                <option value={3}>Interview</option>
-                <option value={4}>Offer</option>
-                <option value={5}>Accepted</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  className="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-              </div>
-            </div>
+            <input
+              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+              id="name"
+              type="text"
+              value={job.company.name}
+              onChange={(e) => handleCompanyChange(e)}
+              required
+            />
           </div>
-          <div className="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+          <div className="mb-6 flex flex-col">
             <label
               className="text-gray-700 text-sm font-bold mb-2"
-              htmlFor="link"
+              htmlFor="position"
             >
-              URL/Link
+              Position
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="link"
+              id="position"
               type="text"
-              onChange={e => {
+              value={job.position}
+              onChange={(e) => {
                 handleChange(e);
               }}
-              placeholder="link"
-              value={job.link}
+              required
             />
           </div>
-        </div>
-
-        <div className="flex flex-wrap -mx-3 mb-2">
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="text-gray-700 text-sm font-bold mb-2"
-              htmlFor="country"
-            >
-              Country
-            </label>
-            <div className="relative">
-              <select
-                className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="country"
-                onChange={e => handleCompanyChange(e)}
-                value={job.company.address.country}
+          <div className="flex flex-wrap -mx-3 mb-2">
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label
+                className="text-gray-700 text-sm font-bold mb-2"
+                htmlFor="status"
               >
-                <option value="none" key={0}>
-                  Select an Option
-                </option>
-                {getCountries().map(country => (
-                  <option key={country} value={country}>
-                    {country}
-                  </option>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  className="fill-current h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
+                Status
+              </label>
+              <div className="relative">
+                <select
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="status"
+                  value={job.status}
+                  onChange={(e) => {
+                    handleChange(e);
+                  }}
+                  required
                 >
-                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
+                  <option value={1}>Applied</option>
+                  <option value={2}>Rejected</option>
+                  <option value={3}>Interview</option>
+                  <option value={4}>Offer</option>
+                  <option value={5}>Accepted</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="text-gray-700 text-sm font-bold mb-2"
-              htmlFor="city"
-            >
-              City
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="city"
-              type="text"
-              onChange={e => {
-                handleCompanyChange(e);
-              }}
-              placeholder="City"
-              value={job.company.address.city}
-            />
-          </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="text-gray-700 text-sm font-bold mb-2"
-              htmlFor="zip"
-            >
-              Zip
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="zipCode"
-              type="text"
-              onChange={e => {
-                handleCompanyChange(e);
-              }}
-              placeholder="Zip"
-              value={job.company.address.zipCode}
-            />
-          </div>
-        </div>
-        <div className="flex">
-          <p className="text-gray-700 text-sm font-bold mb-2 mr-2">
-            Recruiter Info
-          </p>
-          <div onClick={() => setToggleRecruiter(!toggleRecruiter)}>
-            <MaterialIcon
-              icon={
-                toggleRecruiter ? "keyboard_arrow_up" : "keyboard_arrow_down"
-              }
-            />
-          </div>
-        </div>
-        {toggleRecruiter ? (
-          <div className="flex flex-wrap mb-2">
-            <div className="w-full md:w-1/2 md:pr-3 mb-6 md:mb-0">
+            <div className="w-full md:w-2/3 px-3 mb-6 md:mb-0">
               <label
                 className="text-gray-700 text-sm font-bold mb-2"
-                htmlFor="Recruiter"
+                htmlFor="link"
               >
-                Recruiter's Name
+                URL/Link
               </label>
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="name"
+                id="link"
                 type="text"
-                onChange={e => handleRecruiterChange(e)}
-                placeholder="Recruiter"
-                value={job.recruiter.name}
-              />
-            </div>
-            <div className="w-full md:w-1/2 mb-6 md:mb-0">
-              <label
-                className="text-gray-700 text-sm font-bold mb-2"
-                htmlFor="Recruiter"
-              >
-                Recruiter's Email
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="emailAddress"
-                type="Email"
-                onChange={e => handleRecruiterChange(e)}
-                placeholder="RecruiterEmail"
-                value={job.recruiter.emailAddress}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
+                placeholder="link"
+                value={job.link}
               />
             </div>
           </div>
-        ) : null}
-        <p className="text-center text-red-500 text-sm">{jobError}</p>
-        <div className="flex items-center justify-between mt-4">
-          <button
-            className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-            type="button"
-            onClick={handleSubmit}
-          >
-            {isNew ? "Submit" : "Update"}
-          </button>
-        </div>
-      </form>
+
+          <div className="flex flex-wrap -mx-3 mb-2">
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label
+                className="text-gray-700 text-sm font-bold mb-2"
+                htmlFor="country"
+              >
+                Country
+              </label>
+              <div className="relative">
+                <select
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="country"
+                  onChange={(e) => handleCompanyChange(e)}
+                  value={job.company.address.country}
+                >
+                  <option value="none" key={0}>
+                    Select an Option
+                  </option>
+                  {getCountries().map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg
+                    className="fill-current h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label
+                className="text-gray-700 text-sm font-bold mb-2"
+                htmlFor="city"
+              >
+                City
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="city"
+                type="text"
+                onChange={(e) => {
+                  handleCompanyChange(e);
+                }}
+                placeholder="City"
+                value={job.company.address.city}
+              />
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label
+                className="text-gray-700 text-sm font-bold mb-2"
+                htmlFor="zip"
+              >
+                Zip
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                id="zipCode"
+                type="text"
+                onChange={(e) => {
+                  handleCompanyChange(e);
+                }}
+                placeholder="Zip"
+                value={job.company.address.zipCode}
+              />
+            </div>
+          </div>
+          <div className="flex">
+            <p className="text-gray-700 text-sm font-bold mb-2 mr-2">
+              Recruiter Info
+            </p>
+            <div onClick={() => setToggleRecruiter(!toggleRecruiter)}>
+              <MaterialIcon
+                icon={
+                  toggleRecruiter ? "keyboard_arrow_up" : "keyboard_arrow_down"
+                }
+              />
+            </div>
+          </div>
+          {toggleRecruiter ? (
+            <div className="flex flex-wrap mb-2">
+              <div className="w-full md:w-1/2 md:pr-3 mb-6 md:mb-0">
+                <label
+                  className="text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="Recruiter"
+                >
+                  Recruiter's Name
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="name"
+                  type="text"
+                  onChange={(e) => handleRecruiterChange(e)}
+                  placeholder="Recruiter"
+                  value={job.recruiter.name}
+                />
+              </div>
+              <div className="w-full md:w-1/2 mb-6 md:mb-0">
+                <label
+                  className="text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="Recruiter"
+                >
+                  Recruiter's Email
+                </label>
+                <input
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="emailAddress"
+                  type="Email"
+                  onChange={(e) => handleRecruiterChange(e)}
+                  placeholder="RecruiterEmail"
+                  value={job.recruiter.emailAddress}
+                />
+              </div>
+            </div>
+          ) : null}
+          <p className="text-center text-red-500 text-sm">{jobError}</p>
+          <div className="flex items-center justify-between mt-4">
+            <button
+              className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+              type="button"
+              onClick={handleSubmit}
+            >
+              {isNew ? "Submit" : "Update"}
+            </button>
+          </div>
+        </form>
+      </div>
     </Modal>
   );
 };
@@ -316,23 +320,23 @@ const ApplicationModal = ({
 ApplicationModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
   setApplicationModal: PropTypes.func.isRequired,
-  selectedJob: PropTypes.object.isRequired
+  selectedJob: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isModalOpen: state.dashboard.isApplicationOpen,
     userId: state.user.uid,
     jobError: state.dashboard.error,
-    selectedJob: state.dashboard.job
+    selectedJob: state.dashboard.job,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       setApplicationModal,
       createJob,
-      updateJob
+      updateJob,
     },
     dispatch
   );

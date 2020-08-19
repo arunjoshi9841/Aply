@@ -5,21 +5,21 @@ const Dialog = isOpen => {
   return {
     display: isOpen ? "flex" : "none",
     position: "fixed",
-    zIndex: 1,
+    zIndex: 5,
     left: 0,
     top: 0,
     width: "100%",
     height: "100%",
     overflow: "auto",
-    background: "rgba(240, 248, 255, 0.18)"
+    background: "rgba(240, 248, 255, 0.18)",
+    justifyContent: "center",
+    alignItems: "center"
   };
 };
 
 const DialogContent = (height, width) => {
   return {
     backgroundColor: "#fefefe",
-    position:"relative",
-    margin: "auto",
     boxShadow:
       "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
     minWidth: "400px",

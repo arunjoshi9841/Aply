@@ -9,10 +9,11 @@ import { setApplicationModal } from "../../store/actions";
 
 const ApplicationNumber = ({ setApplicationModal, jobsAll }) => {
   const [selected, setSelected]= useState(1);
-  const [value, setValue]=useState(jobsAll.length)
   const handleChange=(e)=>{
     setSelected(e.target.value);
-    setValue( jobsAll.filter(job=>job.status===e.target.value).length)
+  }
+  const getValue=()=>{
+    return jobsAll.filter(job=>job.status===parseInt(selected)).length
   }
   return (
     <div className="pb-4">
@@ -27,7 +28,7 @@ const ApplicationNumber = ({ setApplicationModal, jobsAll }) => {
         <div className="flex items-center px-6 lg:hidden">
           <div className="flex-grow flex-no-shrink py-6">
             <div className="text-grey-darker mb-2">
-              <span className="text-5xl text-blue-600"  style={{ color: getColor(2) }}>{value}</span>
+  <span className="text-5xl text-blue-600"  style={{ color: getColor(selected) }}>{getValue()}/{jobsAll.length}</span>
             </div>           
           </div>
           <div className="flex-shrink w-40 inline-block">

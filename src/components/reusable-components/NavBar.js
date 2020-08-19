@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import MaterialIcon from "material-icons-react";
-import getGravatar from "../../utils/getGravatar";
-import Folder from "../../utils/svg/undraw_folder_39kl.svg"
-
 import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
-
-
 import { setUnauthorized } from "../../store/actions";
+import getGravatar from "../../utils/getGravatar";
 
-const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) => {
+const NavBar = ({
+  isAuthenticated,
+  userName,
+  setUnauthorized,
+  emailAddress,
+}) => {
   const [nav, setNav] = useState("Home");
   const [menuToogle, setMenuToggle] = useState(false);
   const [sidebarToogle, setSidebarToogle] = useState(false);
@@ -20,15 +21,15 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
       case "/":
         setNav("Home");
         break;
-      case "/Contact":
-        setNav("Contact");
-        break;
+      // case "/Contact":
+      //   setNav("Contact");
+      //   break;
       case "/:user":
         setNav("Profile");
         break;
-      case "/About":
-        setNav("About");
-        break;
+      // case "/About":
+      //   setNav("About");
+      //   break;
       case "/:user/Dashboard":
         setNav("Dashboard");
         break;
@@ -86,7 +87,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                     <span className="text-white text-sm">Dashboard</span>
                   </div>
                 </Link>
-                <Link to={`/${userName}/Statistics`} className="no-underline">
+                {/* <Link to={`/${userName}/Statistics`} className="no-underline">
                   <div
                     className={
                       nav === "Statistics"
@@ -98,8 +99,8 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                     <MaterialIcon icon="data_usage" color="white" /> &nbsp;
                     <span className="text-white text-sm">Statistics</span>
                   </div>
-                </Link>
-                <Link to={`/${userName}/Shared`} className="no-underline">
+                </Link> */}
+                {/* <Link to={`/${userName}/Shared`} className="no-underline">
                   <div
                     className={
                       nav === "Shared"
@@ -111,13 +112,13 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                     <MaterialIcon icon="share" color="white" /> &nbsp;
                     <span className="text-white text-sm">Shared</span>
                   </div>
-                </Link>
+                </Link> */}
               </div>
             </div>
           ) : (
             <div className="w-full flex flex-row-reverse">
               <div className="hidden lg:flex w-full flex-row-reverse">
-                <Link to="/About" className="no-underline">
+                {/* <Link to="/About" className="no-underline">
                   <div
                     className={
                       nav === "About"
@@ -143,7 +144,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                     &nbsp;
                     <span className="text-white text-sm">Contact</span>
                   </div>
-                </Link>
+                </Link> */}
                 <Link to="/" className="no-underline">
                   <div
                     className={
@@ -167,9 +168,15 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
             </div>
           )}
         </div>
-        <div className="h-24 bg-purple-500 w-24 ml-12 -mt-16"></div>
-        <div className="-mt-48 ml-16 w-20 h-20 pr-2">
-          <img src={Folder} alt="paperClipLogo"/>
+        <div className="h-24 bg-purple-500 w-24 ml-12 -mt-16 flex justify-center items-center">
+          <Link to={`/`} className="no-underline">
+            <div className="bg-white rounded-full p-2">
+              <img src="/logo.png" alt="paperClipLogo" width="40" />
+            </div>
+          </Link>
+        </div>
+        <div className="bg-purple-500 ml-40 -mt-16">
+          <p className="text-white font-bold text-xl">PAPERCLIP</p>
         </div>
       </div>
       <div
@@ -215,7 +222,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                 <span className="text-lg">Dashboard</span>
               </div>
             </Link>
-            <Link to={`/${userName}/Statistics`} className="no-underline">
+            {/* <Link to={`/${userName}/Statistics`} className="no-underline">
               <div className="flex border-b-2 py-4 px-4 h-16 hover:bg-grey-200 cursor-pointer">
                 <MaterialIcon icon="data_usage" /> &nbsp;
                 <span className="text-lg">Statistics</span>
@@ -226,7 +233,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                 <MaterialIcon icon="share" /> &nbsp;
                 <span className="text-lg">Shared</span>
               </div>
-            </Link>
+            </Link> */}
           </div>
         ) : (
           <div>
@@ -236,7 +243,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                 <span className="text-lg">Home</span>
               </div>
             </Link>
-            <Link to="/About" className="no-underline">
+            {/* <Link to="/About" className="no-underline">
               <div className="flex border-b-2 py-4 px-4 h-16 hover:bg-grey-200 cursor-pointer">
                 <MaterialIcon icon="description" /> &nbsp;
                 <span className="text-lg">About Us</span>
@@ -247,7 +254,7 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
                 <MaterialIcon icon="perm_contact_calendar" /> &nbsp;
                 <span className="text-lg">Contact Us</span>
               </div>
-            </Link>
+            </Link> */}
           </div>
         )}
       </div>
@@ -257,20 +264,20 @@ const NavBar = ({ isAuthenticated, userName, setUnauthorized, emailAddress }) =>
 
 NavBar.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  setUnauthorized: PropTypes.func.isRequired
+  setUnauthorized: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
     userName: state.user.userName,
-    emailAddress: state.user.emailAddress
+    emailAddress: state.user.emailAddress,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      setUnauthorized
+      setUnauthorized,
     },
     dispatch
   );

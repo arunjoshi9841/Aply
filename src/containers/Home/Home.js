@@ -1,15 +1,15 @@
-import React from "react";
-import Auth from "../auth/Auth";
-import reflect from "../../utils/svg/undraw_career_progress_ivdb.svg";
-import stat from "../../utils/svg/undraw_career_development_oqcb (2).svg";
-
 import PropTypes from "prop-types";
+import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { Link } from "react-router-dom";
+import { bindActionCreators } from "redux";
 import Footer from "../../components/reusable-components/Footer";
-
 import { setLoginModal } from "../../store/actions";
+import stat from "../../utils/svg/undraw_career_development_oqcb (2).svg";
+import reflect from "../../utils/svg/undraw_career_progress_ivdb.svg";
+import Auth from "../auth/Auth";
+
+
 
 const Home = ({ isAuthenticated, setLoginModal }) => {
   return (
@@ -24,9 +24,9 @@ const Home = ({ isAuthenticated, setLoginModal }) => {
               Your Job Application
             </h2>
             <p className="text-gray-600 leading-relaxed mb-12">
-              Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum
-              rutrum metus at enim congue scelerisque. Sed suscipit metu non
-              iaculis semper consectetur adipiscing elit.
+              Are you tired of creating excel sheets to record your job
+              applications? Signup to create dynamic cards for your applications
+              that you can access from anywhere.
             </p>
             <div className="flex">
               <Link
@@ -44,10 +44,10 @@ const Home = ({ isAuthenticated, setLoginModal }) => {
               </button>
             </div>
           </div>
-          <img src={stat} alt="stat" className="max-w-sm mx-auto my-8"/>
+          <img src={stat} alt="stat" className="max-w-sm mx-auto my-8" />
         </section>
         <section className="flex flex-wrap my-20 justify-center items-center">
-          <img src={reflect} alt="reflect" className="max-w-sm mx-auto my-8"/>
+          <img src={reflect} alt="reflect" className="max-w-sm mx-auto my-8" />
           <div className="max-w-md flex flex-col items-center sm:items-start text-center sm:text-left mx-auto">
             <h1 className="uppercase text-6xl text-blue-900 font-bold leading-none tracking-wide mb-2">
               Visualize
@@ -56,9 +56,9 @@ const Home = ({ isAuthenticated, setLoginModal }) => {
               Your Growth
             </h2>
             <p className="text-gray-600 leading-relaxed mb-12">
-              Lorem ipsum dolor sit amet, consectetur adipiscing. Vestibulum
-              rutrum metus at enim congue scelerisque. Sed suscipit metu non
-              iaculis semper consectetur adipiscing elit.
+              Visuaize where you are in your application process and what you
+              need to work on. Find out where you stand among other applicants.
+              Coming soon..
             </p>
           </div>
         </section>
@@ -73,18 +73,18 @@ const Home = ({ isAuthenticated, setLoginModal }) => {
 
 Home.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  setLoginModal: PropTypes.func.isRequired
+  setLoginModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ auth }) => {
   return {
-    isAuthenticated: auth.isAuthenticated
+    isAuthenticated: auth.isAuthenticated,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      setLoginModal
+      setLoginModal,
     },
     dispatch
   );
