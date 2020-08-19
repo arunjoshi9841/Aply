@@ -29,12 +29,12 @@ const Home = ({ isAuthenticated, setLoginModal }) => {
               that you can access from anywhere.
             </p>
             <div className="flex">
-              <Link
+              <a
                 className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mx-4"
-                to="/About"
+                href="https://github.com/arunjoshi9841/Aply"
               >
                 Learn More
-              </Link>
+              </a>
               <button
                 className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                 type="button"
