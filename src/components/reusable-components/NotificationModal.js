@@ -14,8 +14,6 @@ const Dialog = (isOpen) => {
     zIndex: 5,
     backgroundColor: "#fefefe",
     margin: "auto",
-    boxShadow:
-      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
     width: "auto",
     height: "auto",
     overflow: "10%",
@@ -36,18 +34,18 @@ const NotificationModal = ({
     return () => clearTimeout(timer);
   }, [notification]);
   return (
-    <div style={Dialog(notification)}>
+    <div style={Dialog(notification)} className="bg-white border-t border-b sm:border-l sm:border-r sm:rounded shadow">
       {notificationMessage[0] === "success" ? (
         <div className="flex flex-grow justify-between items-center mx-4">
           <MaterialIcon icon="check" size="50px" color="green" />
-          <p className="ml-4 text-md font-bold mb-2">
+          <p className="ml-4 font-normal mb-2">
             {notificationMessage[1]}
           </p>
         </div>
       ) : (
         <div className="flex flex-grow justify-between items-center mx-4">
           <MaterialIcon icon="error_outline" size="50px" color="red" />
-          <p className="ml-4 text-md mb-2">
+          <p className="ml-4 font-normal mb-2">
             {notificationMessage[1]}
           </p>
         </div>

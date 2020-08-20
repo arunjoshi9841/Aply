@@ -26,6 +26,7 @@ const Login = ({ loginError, login, resetError}) => {
       <p className="text-2xl text-center font-title font-bold text-purple-700 uppercase">
         Login
       </p>
+      <p className="text-center text-red-500 text-sm p-4">{loginError}</p>
       <form className="mt-12 block" onClick={()=>resetError()}>
         <div className="mb-4 flex flex-col">
           <label
@@ -67,10 +68,9 @@ const Login = ({ loginError, login, resetError}) => {
                 : "hidden"
             }
           >
-            Password must be 7 characters long
+            Password must be 8 characters long
           </p>
         </div>
-          <p className="text-center text-red-500 text-sm">{loginError}</p>
         <div className="flex items-center justify-between">
           <button
             className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"

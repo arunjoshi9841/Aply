@@ -139,7 +139,7 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
                     : "hidden text-gray-600 text-xs italic"
                 }
               >
-                Password must be 7 characters long
+                Password must be 8 characters long
               </p>
             </div>
             <div className="w-full md:w-1/2 px-3">

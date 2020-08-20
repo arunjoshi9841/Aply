@@ -18,7 +18,7 @@ export function addUser(user) {
         return Promise.all([
           dispatch({
             type: REGISTER_SUCCESS,
-            payload: response.data,
+            payload: response.data.user,
           }),
           dispatch(setNotification(["success", "Signed up successfully"])),          
           history.push(`/${response.data.user.userName}/Dashboard`),
