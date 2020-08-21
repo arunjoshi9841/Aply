@@ -54,12 +54,6 @@ const NavBar = ({
           {isAuthenticated ? (
             <div className="w-full flex flex-row-reverse">
               <div
-                className="lg:hidden mr-8 mt-2"
-                onClick={() => setSidebarToogle(!sidebarToogle)}
-              >
-                <MaterialIcon icon="menu" color="white" />
-              </div>
-              <div
                 className="mr-8 mt-2"
                 onClick={() => setMenuToggle(!menuToogle)}
               >
@@ -73,7 +67,7 @@ const NavBar = ({
                   alt="profile"
                 />
               </div>
-              <div className="hidden lg:flex w-full flex-row-reverse">
+              <div className="flex w-full flex-row-reverse">
                 <Link to={`/${userName}/Dashboard`} className="no-underline">
                   <div
                     className={
@@ -86,65 +80,12 @@ const NavBar = ({
                     <MaterialIcon icon="dashboard" color="white" /> &nbsp;
                     <span className="text-white text-sm">Dashboard</span>
                   </div>
-                </Link>
-                {/* <Link to={`/${userName}/Statistics`} className="no-underline">
-                  <div
-                    className={
-                      nav === "Statistics"
-                        ? "flex mr-8 cursor-pointer p-2"
-                        : "flex mr-8 cursor-pointer p-2 opacity-75"
-                    }
-                    onClick={() => setNav("Statistics")}
-                  >
-                    <MaterialIcon icon="data_usage" color="white" /> &nbsp;
-                    <span className="text-white text-sm">Statistics</span>
-                  </div>
-                </Link> */}
-                {/* <Link to={`/${userName}/Shared`} className="no-underline">
-                  <div
-                    className={
-                      nav === "Shared"
-                        ? "flex mr-8 cursor-pointer p-2"
-                        : "flex mr-8 cursor-pointer p-2 opacity-75"
-                    }
-                    onClick={() => setNav("Shared")}
-                  >
-                    <MaterialIcon icon="share" color="white" /> &nbsp;
-                    <span className="text-white text-sm">Shared</span>
-                  </div>
-                </Link> */}
+                </Link>               
               </div>
             </div>
           ) : (
             <div className="w-full flex flex-row-reverse">
-              <div className="hidden lg:flex w-full flex-row-reverse">
-                {/* <Link to="/About" className="no-underline">
-                  <div
-                    className={
-                      nav === "About"
-                        ? "flex mr-8 cursor-pointer p-2"
-                        : "flex mr-8 cursor-pointer p-2 opacity-75"
-                    }
-                    onClick={() => setNav("About")}
-                  >
-                    <MaterialIcon icon="description" color="white" /> &nbsp;
-                    <span className="text-white text-sm">About</span>
-                  </div>
-                </Link>
-                <Link to="/Contact" className="no-underline">
-                  <div
-                    className={
-                      nav === "Contact"
-                        ? "flex mr-8 cursor-pointer p-2"
-                        : "flex mr-8 cursor-pointer p-2 opacity-75"
-                    }
-                    onClick={() => setNav("Contact")}
-                  >
-                    <MaterialIcon icon="perm_contact_calendar" color="white" />{" "}
-                    &nbsp;
-                    <span className="text-white text-sm">Contact</span>
-                  </div>
-                </Link> */}
+              <div className="flex w-full flex-row-reverse">               
                 <Link to="/" className="no-underline">
                   <div
                     className={
@@ -158,13 +99,7 @@ const NavBar = ({
                     <span className=" inline text-white text-sm">Home</span>
                   </div>
                 </Link>
-              </div>
-              <div
-                className="lg:hidden mr-8 mt-2"
-                onClick={() => setSidebarToogle(!sidebarToogle)}
-              >
-                <MaterialIcon icon="menu" color="white" />
-              </div>
+              </div>              
             </div>
           )}
         </div>
@@ -205,59 +140,7 @@ const NavBar = ({
             Logout
           </li>
         </ul>
-      </div>
-      <div
-        className={
-          sidebarToogle
-            ? "flex flex-col absolute top-0 mt-24 right-0 h-screen w-64 bg-white border border-gray-light"
-            : "hidden"
-        }
-      >
-        {isAuthenticated ? (
-          <div>
-            {" "}
-            <Link to={`/${userName}/Dashboard`} className="no-underline">
-              <div className="flex border-b-2 py-4 px-4 h-16 hover:bg-grey-200 cursor-pointer">
-                <MaterialIcon icon="dashboard" /> &nbsp;
-                <span className="text-lg">Dashboard</span>
-              </div>
-            </Link>
-            {/* <Link to={`/${userName}/Statistics`} className="no-underline">
-              <div className="flex border-b-2 py-4 px-4 h-16 hover:bg-grey-200 cursor-pointer">
-                <MaterialIcon icon="data_usage" /> &nbsp;
-                <span className="text-lg">Statistics</span>
-              </div>
-            </Link>
-            <Link to={`/${userName}/Shared`} className="no-underline">
-              <div className="flex border-b-2 py-4 px-4 h-16 hover:bg-grey-200 cursor-pointer">
-                <MaterialIcon icon="share" /> &nbsp;
-                <span className="text-lg">Shared</span>
-              </div>
-            </Link> */}
-          </div>
-        ) : (
-          <div>
-            <Link to="/" className="no-underline">
-              <div className="flex border-b-2 py-4 px-4 h-16 hover:bg-grey-200 cursor-pointer">
-                <MaterialIcon icon="home" /> &nbsp;
-                <span className="text-lg">Home</span>
-              </div>
-            </Link>
-            {/* <Link to="/About" className="no-underline">
-              <div className="flex border-b-2 py-4 px-4 h-16 hover:bg-grey-200 cursor-pointer">
-                <MaterialIcon icon="description" /> &nbsp;
-                <span className="text-lg">About Us</span>
-              </div>
-            </Link>
-            <Link to="/Contact" className="no-underline">
-              <div className="flex border-b-2 py-4 px-4 h-16 hover:bg-grey-200 cursor-pointer">
-                <MaterialIcon icon="perm_contact_calendar" /> &nbsp;
-                <span className="text-lg">Contact Us</span>
-              </div>
-            </Link> */}
-          </div>
-        )}
-      </div>
+      </div>      
     </div>
   );
 };

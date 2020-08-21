@@ -6,7 +6,7 @@ const ForgotPassword = () => {
   // };
   return (
     <div>
-      <p className="text-2xl text-center font-title font-bold text-purple-700 uppercase">
+      <p className="text-2xl uppercase text-blue-900 font-bold leading-none tracking-wide">
         forgot password
       </p>
       <div className="mt-12 flex flex-col mb-4">

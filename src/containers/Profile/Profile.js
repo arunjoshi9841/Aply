@@ -72,7 +72,7 @@ const Profile = ({ user, resetError, isEditModal, setEditModal }) => {
       </div>
       {isEditModal&&<Modal isOpen={isEditModal} onClose={handleClose}>  
       <div className="m-12">
-      <Register edit={true}/>
+      <Register edit={true} onClose={handleClose}/>
       </div>
       </Modal>}
     </div>

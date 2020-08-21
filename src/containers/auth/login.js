@@ -23,7 +23,7 @@ const Login = ({ loginError, login, resetError}) => {
   };
   return (
     <div>
-      <p className="text-2xl text-center font-title font-bold text-purple-700 uppercase">
+      <p className="text-2xl text-center uppercase text-blue-900 font-bold leading-none tracking-wide">
         Login
       </p>
       <p className="text-center text-red-500 text-sm p-4">{loginError}</p>

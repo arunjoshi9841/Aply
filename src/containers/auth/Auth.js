@@ -57,7 +57,7 @@ const Auth = ({ isModalOpen, setLoginModal }) => {
               </span> */}
             </div>
           ) : null}
-          {view === 2 ? <Register /> : null}
+          {view === 2 ? <Register onClose={handleClose}/> : null}
           {view === 3 ? <ForgotPassword /> : null}
         </div>
       </Modal>:<></>

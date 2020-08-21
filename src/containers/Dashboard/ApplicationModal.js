@@ -83,8 +83,8 @@ const ApplicationModal = ({
   return (
     <Modal isOpen={isModalOpen} onClose={handleClose}>
       <div className="m-12">
-        <div className="mt-4">
-          <p className="text-2xl text-center font-title font-bold text-purple-700">
+        <div>
+          <p className="text-2xl text-center uppercase text-blue-900 font-bold leading-none tracking-wide">
             {isNew ? "Create Application" : "Update Application"}
           </p>
         </div>
@@ -309,6 +309,13 @@ const ApplicationModal = ({
               onClick={handleSubmit}
             >
               {isNew ? "Submit" : "Update"}
+            </button>
+            <button
+              className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded ml-3"
+              type="button"
+              onClick={handleClose}
+            >
+              Close
             </button>
           </div>
         </form>

@@ -7,7 +7,7 @@ import getCountries from "../../utils/getCountries";
 import checkPasswordValidation from "../../utils/checkPasswordValidation";
 import { addUser, editUser, resetError } from "../../store/actions";
 
-const Register = ({ registerError, addUser, initialUser, edit, editUser, resetError }) => {
+const Register = ({ registerError, addUser, initialUser, edit, editUser, resetError, onClose }) => {
   const [user, setUser] = useState({ ...initialUser });
   const [error, setError] = useState(false);
   const [passwordEqual, setPasswordEqual] = useState(true);
@@ -45,12 +45,11 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
   };
   return (
     <div>
-      <p className="text-2xl text-center font-title font-bold text-purple-700 uppercase">
+      <p className="text-2xl text-center uppercase text-blue-900 font-bold leading-none tracking-wide">
         {edit ? "Edit Profile" : "Register"}
       </p>
-      <form
-        className="mt-12"
-        style={{ maxHeight: "60vh", overflowY: "auto", overflowX: "hidden" }}
+      <form        
+        style={{ maxHeight: "65vh", overflowY: "auto", overflowX: "hidden" }}
         onClick={()=>resetError()}
       >
         <p className="text-center text-red-500 text-md py-4">{registerError}</p>
@@ -106,10 +105,7 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
               placeholder="******************"
               value={user.emailAddress}
               required
-            />
-            {/* <p className="text-gray-600 text-xs italic">
-              email vaildation error
-            </p> */}
+            />           
           </div>
         </div>
         {!edit && (
@@ -264,6 +260,13 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
             >
               Register
             </button>}
+            <button
+              className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded ml-3"
+              type="button"
+              onClick={onClose}
+            >
+              Close
+            </button>
           </div>
         </div>
       </form>
