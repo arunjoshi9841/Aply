@@ -1,12 +1,14 @@
 import axios from "axios";
 const apiUrlBase = process.env.REACT_APP_SERVICE;
-
-export const homeInstance = axios.create({
-  baseURL: apiUrlBase
-});
-export const authenticatedInstance = axios.create({
-  baseURL: apiUrlBase,
-  headers: {
-    authorization: localStorage.getItem("jwt")
+let instance  = axios.create({ baseURL:apiUrlBase});
+instance.interceptors.request.use(
+  async function(config){
+      config.headers.Authorization = localStorage.getItem('paperclip_token');
+      return config; 
+  },
+  function(err){
+      return Promise.reject(err);
   }
-});
+);
+
+export default instance; 

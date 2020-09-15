@@ -18,7 +18,7 @@ import { setAuthentication, getUser } from "./store/actions";
 
 function App({ isAuthenticated, setAuthentication, getUser, notification }) {
   useEffect(() => {
-    if (localStorage.getItem("jwt")) {     
+    if (localStorage.getItem("paperclip_token")) {     
       getUser();
       setAuthentication();
     }

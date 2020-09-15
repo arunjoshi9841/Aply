@@ -15,7 +15,6 @@ const initialState = {
     address:{
       country: "United States",
       city: "",
-      zip: "",
     }
   },
 };
@@ -78,7 +77,7 @@ export default function (state = initialState, action) {
       }
 
     case Actions.SET_UNAUTHORIZED:
-      localStorage.removeItem("jwt");
+      localStorage.removeItem("paperclip_token");
       return { ...state, isAuthenticated: false, initUser: initialState.initUser };
     default:
       return state;

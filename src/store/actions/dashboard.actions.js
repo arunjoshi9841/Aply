@@ -1,4 +1,4 @@
-import { authenticatedInstance } from "../../api";
+import instance from "../../api";
 import { setNotification } from "./home.actions";
 export const SET_APPLICATION_MODAL = "SET_APPLICATION_MODAL";
 export const GET_ALL_JOBS = "GET_ALL_JOBS";
@@ -11,7 +11,7 @@ export function setApplicationModal(value) {
   };
 }
 export function createJob(job) {
-  const request = authenticatedInstance.post("/jobs", job);
+  const request = instance.post("/jobs", job);
   return (dispatch) =>
     request
       .then((response) =>
@@ -34,7 +34,7 @@ export function createJob(job) {
       });
 }
 export function updateJob(job) {
-  const request = authenticatedInstance.put("/jobs", job);
+  const request = instance.put("/jobs", job);
   return (dispatch) =>
     request
       .then((response) =>
@@ -57,7 +57,7 @@ export function updateJob(job) {
       });
 }
 export function getJobs() {
-  const request = authenticatedInstance.get("/jobs");
+  const request = instance.get("/jobs");
   return (dispatch) =>
     request.then((response) => dispatch(setAllJobs(response.data)));
 }

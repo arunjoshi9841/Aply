@@ -212,23 +212,7 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
               placeholder="City"
               value={user.address.city}
             />
-          </div>
-          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-            <label
-              className="text-gray-700 text-sm font-bold mb-2"
-              htmlFor="zip"
-            >
-              Zip
-            </label>
-            <input
-              className={inputStyle}
-              id="zip"
-              type="tel"
-              onChange={(e) => handleChange(e)}
-              placeholder="Zip"
-              value={user.address.zip}
-            />
-          </div>
+          </div>          
           <div className="w-full md:w-2/3 px-3 mt-6 md:mb-0">
             <label
               className="text-gray-700 text-sm font-bold mb-2"

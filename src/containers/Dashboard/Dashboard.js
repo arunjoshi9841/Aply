@@ -12,17 +12,13 @@ import { setApplicationModal, getJobs } from "../../store/actions";
 import ApplicationModal from "./ApplicationModal";
 
 const Dashboard = ({ setApplicationModal, getJobs, jobsAll }) => {
-  const [initialized, setInitialized] = useState(false);
   useEffect(() => {
-    if (!initialized) {
       getJobs();
-      setInitialized(true);
-    }
-  });
+  },[]);
   return (
     <div className="w-full lg:flex lg:flex-row-reverse mt-8">
       <ApplicationNumber className="w-1/4"/>
-      {initialized && jobsAll.length > 0 ? (
+      {jobsAll.length > 0 ? (
         <ApplicationList className="w-3/4" />
       ) : (
         <CreateApplication />

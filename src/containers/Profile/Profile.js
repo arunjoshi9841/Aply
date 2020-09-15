@@ -48,8 +48,7 @@ const Profile = ({ user, resetError, isEditModal, setEditModal }) => {
                 </div>
                 {user.address ? (
                   <p className="text-xs font-bold">
-                    {user.address.city}, &nbsp; {user.address.country}, &nbsp;
-                    {user.address.zip}
+                    {user.address.city}, &nbsp; {user.address.country}
                   </p>
                 ) : null}
               </div>

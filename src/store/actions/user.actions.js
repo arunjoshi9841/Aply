@@ -1,4 +1,4 @@
-import { authenticatedInstance } from "../../api";
+import instance  from "../../api";
 import {REGISTER_ERROR} from "./auth.actions";
 import {setNotification, setEditModal} from "./home.actions";
 
@@ -15,7 +15,7 @@ export function setUser(value) {
 };
 export function editUser(user) {
   return (dispatch) => {
-    return authenticatedInstance
+    return instance
       .put("/users", user)
       .then((response) => {
         return Promise.all([
@@ -40,7 +40,7 @@ export function editUser(user) {
 }
 export function getUser() {
   return async dispatch => {
-    return await authenticatedInstance
+    return await instance
       .get("/users")
       .then(response => {
         dispatch({

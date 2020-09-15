@@ -6,7 +6,7 @@ const PrivateRouter = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        localStorage.getItem('jwt')?(
+        localStorage.getItem('paperclip_token')?(
           <Component {...props} />
         ) : (
           <Redirect

@@ -38,7 +38,6 @@ const ApplicationCard = ({ job, setApplicationModal, setJob, updateJob }) => {
     updateJob(updatedJob);
   };
   const getCompanyName =()=>{
-    console.log(localJob.company.name.replace(/\s/g, ""));
     return localJob.company.name.replace(/\s/g, "");
   }
 

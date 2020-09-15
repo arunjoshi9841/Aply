@@ -1,4 +1,4 @@
-import { homeInstance } from "../../api";
+import instance from "../../api";
 import history from "../../history";
 import { setNotification } from "./home.actions";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -11,18 +11,19 @@ export const RESET_ERROR="RESET_ERROR";
 
 export function addUser(user) {
   return (dispatch) => {
-    return homeInstance
+    return instance
       .post("/signup", user)
       .then((response) => {        
-        localStorage.setItem("jwt", response.data.token);
-        return Promise.all([
+        localStorage.setItem("paperclip_token", response.data.token);
+        Promise.all([
           dispatch({
             type: REGISTER_SUCCESS,
             payload: response.data.user,
           }),
-          dispatch(setNotification(["success", "Signed up successfully"])),          
-          history.push(`/${response.data.user.userName}/Dashboard`),
-        ]);
+          dispatch(setNotification(["success", "Signed up successfully"]))
+        ]).then(()=>{
+          history.push(`/${response.data.user.userName}/Dashboard`)
+        })
       })
       .catch((error) => {
         dispatch({
@@ -38,17 +39,18 @@ export function addUser(user) {
 
 export function login(user) {
   return (dispatch) => {
-    return homeInstance
+    return instance
       .post("/login", user)
       .then((response) => {
-        localStorage.setItem("jwt", response.data.token);
-        return Promise.all([
+        Promise.all([          
+        localStorage.setItem("paperclip_token", response.data.token),
           dispatch({
             type: LOGIN_SUCCESS,
             payload: response.data.user,
-          }),
-          history.push(`/${response.data.user.userName}/Dashboard`),
-        ]);
+          })         
+        ]).then(()=>{
+          history.push(`/${response.data.user.userName}/Dashboard`)
+        })
       })
       .catch((error) => {
         dispatch({
@@ -69,7 +71,7 @@ export function setAuthentication() {
   return (dispatch) => {
     dispatch({
       type: SET_AUTHENTICATION,
-      payload: localStorage.getItem("jwt"),
+      payload: localStorage.getItem("paperclip_token"),
     });
   };
 }
