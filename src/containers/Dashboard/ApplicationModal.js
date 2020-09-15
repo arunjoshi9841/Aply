@@ -38,6 +38,7 @@ const ApplicationModal = ({
   const [toggleRecruiter, setToggleRecruiter] = useState(false);
   const [isNew, setIsNew] = useState(true);
   const [job, setJob] = useState(initialJob);
+  const [validated, setValidated] = useState(false);
 
   useEffect(() => {
     if (selectedJob.jobId) {
@@ -45,6 +46,11 @@ const ApplicationModal = ({
       setJob(selectedJob);
     }
   }, [selectedJob]);
+  useEffect(()=>{
+    if(job.status && job.company.name.length>0 && job.position.length>0){
+      setValidated(true);
+    }
+  }, [job])
 
   const handleClose = () => {
     setToggleRecruiter(false);
@@ -55,7 +61,11 @@ const ApplicationModal = ({
     setApplicationModal(false);
   };
   const handleChange = (e) => {
-    setJob({ ...job, [e.target.id]: e.target.value });
+    if(e.target.id==="status"){
+      setJob({ ...job, [e.target.id]:parseInt(e.target.value)});
+    }else{
+      setJob({ ...job, [e.target.id]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value});
+    }
   };
   const handleRecruiterChange = (e) => {
     let tempRecruiter = { ...job.recruiter };
@@ -69,7 +79,7 @@ const ApplicationModal = ({
       setJob({ ...job, company: tempComp });
     } else {
       let tempCompAdd = { ...job.company.address };
-      tempCompAdd = { ...tempCompAdd, [e.target.id]: e.target.value };
+      tempCompAdd = { ...tempCompAdd, [e.target.id]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value};
       tempComp.address = tempCompAdd;
       setJob({ ...job, company: tempComp });
     }
@@ -245,6 +255,7 @@ const ApplicationModal = ({
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="zipCode"
                 type="text"
+                type="number"
                 onChange={(e) => {
                   handleCompanyChange(e);
                 }}
@@ -304,8 +315,9 @@ const ApplicationModal = ({
           <p className="text-center text-red-500 text-sm">{jobError}</p>
           <div className="flex items-center justify-between mt-4">
             <button
-              className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+              className={`shadow bg-purple-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded ${!validated?`opacity-50 cursor-not-allowed`:`hover:bg-purple-400`}`}
               type="button"
+              disabled={!validated}
               onClick={handleSubmit}
             >
               {isNew ? "Submit" : "Update"}
