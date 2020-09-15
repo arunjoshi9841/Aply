@@ -22,10 +22,10 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
     ) {
       setUser({
         ...user,
-        address: { ...user.address, [e.target.id]: e.target.value },
+        address: { ...user.address, [e.target.id]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value},
       });
     } else {
-      setUser({ ...user, [e.target.id]: e.target.value });
+      setUser({ ...user, [e.target.id]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value });
     }
 
     if (e.target.id === "password") {
@@ -223,7 +223,7 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
             <input
               className={inputStyle}
               id="zip"
-              type="text"
+              type="number"
               onChange={(e) => handleChange(e)}
               placeholder="Zip"
               value={user.address.zip}

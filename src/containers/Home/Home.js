@@ -40,7 +40,7 @@ const Home = ({ isAuthenticated, setLoginModal }) => {
                 type="button"
                 onClick={() => setLoginModal(true)}
               >
-                Log In
+                Login/Signup
               </button>
             </div>
           </div>

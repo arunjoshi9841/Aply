@@ -67,6 +67,7 @@ export default function (state = initialState, action) {
     case SET_MODAL:
       return {
         ...state,
+        initUser: initialState.initUser,
         loginError: "",
         registerError: "",
       }
