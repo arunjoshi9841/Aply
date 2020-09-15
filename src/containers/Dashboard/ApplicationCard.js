@@ -37,6 +37,10 @@ const ApplicationCard = ({ job, setApplicationModal, setJob, updateJob }) => {
     updatedJob.isDeleted = true;
     updateJob(updatedJob);
   };
+  const getCompanyName =()=>{
+    console.log(localJob.company.name.replace(/\s/g, ""));
+    return localJob.company.name.replace(/\s/g, "");
+  }
 
   return (
     <div className="my-8 mx-4 lg:mx-8 cursor-pointer">
@@ -95,10 +99,10 @@ const ApplicationCard = ({ job, setApplicationModal, setJob, updateJob }) => {
 
             <div>
               <Image
-                src={`http://logo.clearbit.com/${localJob.company.name
+                src={`http://logo.clearbit.com/${getCompanyName()
                   .toString()
                   .toLowerCase()}.com`}
-                fallbackSrc={`https://ui-avatars.com/api/?${localJob.company.name.replace(/\s/g, '')}`}
+                fallbackSrc={`https://ui-avatars.com/api/?name=${localJob.company.name.replace(/\s/g, "+")}`}
                 alt="company logo"
                 className="w-24 m-8"
               />

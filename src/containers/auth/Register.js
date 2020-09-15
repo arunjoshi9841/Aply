@@ -22,7 +22,7 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
     ) {
       setUser({
         ...user,
-        address: { ...user.address, [e.target.id]: e.target.id === 'zip' ? parseInt(e.target.value) : e.target.value},
+        address: { ...user.address, [e.target.id]: e.target.value},
       });
     } else {
       setUser({ ...user, [e.target.id]: e.target.value });
@@ -223,8 +223,7 @@ const Register = ({ registerError, addUser, initialUser, edit, editUser, resetEr
             <input
               className={inputStyle}
               id="zip"
-              type="text"
-              pattern="[0-9]*"
+              type="tel"
               onChange={(e) => handleChange(e)}
               placeholder="Zip"
               value={user.address.zip}

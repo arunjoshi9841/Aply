@@ -20,7 +20,7 @@ const initialJob = {
     address: {
       country: "United States",
       city: "",
-      zipCode: "",
+      zipCode: null,
     },
   },
   isStarred: false,
@@ -43,7 +43,7 @@ const ApplicationModal = ({
   useEffect(() => {
     if (selectedJob.jobId) {
       setIsNew(false);
-      setJob(selectedJob);
+      setJob({...selectedJob});
     }
   }, [selectedJob]);
   useEffect(()=>{
@@ -81,7 +81,7 @@ const ApplicationModal = ({
       setJob({ ...job, company: tempComp });
     } else {
       let tempCompAdd = { ...job.company.address };
-      tempCompAdd = { ...tempCompAdd, [e.target.id]: e.target.id === 'zipCode' ? parseInt(e.target.value) : e.target.value};
+      tempCompAdd = { ...tempCompAdd, [e.target.id]: e.target.value};
       tempComp.address = tempCompAdd;
       setJob({ ...job, company: tempComp });
     }
@@ -256,8 +256,7 @@ const ApplicationModal = ({
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="zipCode"
-                type="text"
-                pattern="[0-9]*"
+                type="tel"
                 onChange={(e) => {
                   handleCompanyChange(e);
                 }}
