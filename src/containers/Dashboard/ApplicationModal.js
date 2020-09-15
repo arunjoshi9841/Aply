@@ -20,7 +20,7 @@ const initialJob = {
     address: {
       country: "United States",
       city: "",
-      zipCode: null,
+      zipCode: "",
     },
   },
   isStarred: false,
@@ -89,8 +89,6 @@ const ApplicationModal = ({
   const handleSubmit = () => {
     isNew ? createJob(job) : updateJob(job);
     setToggleRecruiter(false);
-    setJob(initialJob);
-    setIsNew(true);
   };
   return (
     <Modal isOpen={isModalOpen} onClose={handleClose}>

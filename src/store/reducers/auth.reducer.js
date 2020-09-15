@@ -15,7 +15,7 @@ const initialState = {
     address:{
       country: "United States",
       city: "",
-      zip: null,
+      zip: "",
     }
   },
 };
